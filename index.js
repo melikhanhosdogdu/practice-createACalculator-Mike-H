@@ -8,14 +8,23 @@ function power(base, exponent) {
 }
 
 function squareRoot(num) {
+  if (num < 0) {
+    return "Invalid input must be a non-negative number";
+  }
   return Math.sqrt(num);
 }
 
 function findMax(numbers) {
+  if (numbers.length === 0) {
+    return "Array is empty";
+  }
   return Math.max(...numbers);
 }
 
 function findMin(numbers) {
+  if (numbers.length === 0) {
+    return "Array is empty";
+  }
   return Math.min(...numbers);
 }
 
@@ -56,49 +65,50 @@ function showMenu() {
   console.log("0. Exit");
 }
 
-function showMenu() {
+function promptUser() {
   showMenu();
   readline.question("Select an operation (0-7): ", (choice) => {
     switch (choice) {
       case "1":
         readline.question("Enter a number: ", (num) => {
           console.log("Result:", absoluteValue(Number(num)));
-          showMenu();
+          promptUser();
         });
         break;
       case "2":
         readline.question("Enter base: ", (base) => {
           readline.question("Enter exponent: ", (exp) => {
             console.log("Result:", power(Number(base), Number(exp)));
-            showMenu();
+            promptUser();
           });
         });
         break;
       case "3":
         readline.question("Enter a number: ", (num) => {
           console.log("Result:", squareRoot(Number(num)));
-          showMenu();
+          promptUser();
         });
         break;
       case "4":
         readline.question("Enter numbers separated by commas: ", (input) => {
           const nums = input.split(",").map(Number);
+          console.log("Nums:", nums);
           console.log("Result:", findMax(nums));
-          showMenu();
+          promptUser();
         });
         break;
       case "5":
         readline.question("Enter numbers separated by commas: ", (input) => {
           const nums = input.split(",").map(Number);
           console.log("Result:", findMin(nums));
-          showMenu();
+          promptUser();
         });
         break;
       case "6":
         readline.question("Enter min value: ", (min) => {
           readline.question("Enter max value: ", (max) => {
             console.log("Result:", randomInt(Number(min), Number(max)));
-            showMenu();
+            promptUser();
           });
         });
         break;
@@ -106,7 +116,7 @@ function showMenu() {
         readline.question("Enter a number: ", (num) => {
           readline.question("Enter decimal places: ", (dec) => {
             console.log("Result:", customRound(Number(num), Number(dec)));
-            showMenu();
+            promptUser();
           });
         });
         break;
@@ -116,10 +126,10 @@ function showMenu() {
         break;
       default:
         console.log("Invalid choice. Try again.");
-        showMenu();
+        promptUser();
     }
   });
 }
 
 // Start CLI
-showMenu();
+promptUser();
